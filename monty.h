@@ -52,7 +52,10 @@ int _strcmp(char *s1, char *s2);
 void free_list(stack_t *head);
 void div_top2_by_top1(stack_t **stack, unsigned int line_number);
 void sub_top1_from_top2(stack_t **stack, unsigned int line_number);
-void print_str(stack_t **stack, unsigned int line_number);
 void rotate_to_bottom(stack_t **stack, unsigned int line_number);
-
+void _mul(stack_t **stack, unsigned int line_number);
+void _mod(stack_t **stack, unsigned int line_number);
+void _pchar(stack_t **stack, unsigned int line_number);
+void _pstr(stack_t **stack, unsigned int line_number);
+void _rotl(stack_t **stack, unsigned int line_number);
 #endif /* MONTY_H */

@@ -1,35 +1,6 @@
 #include "monty.h"
 
 /**
- * print_str - print numbers in stack as string
- *@stack: a double pointer to first node
- *@line_number: the current line number
- *
- * Return: void
- */
-
-void print_str(stack_t **stack, unsigned int line_number)
-{
-	int i;
-	stack_t *ptr = *stack;
-	char str[1024] = {'\0'};
-	char ch = 65;  /* initialize to ascii code of A */
-
-	(void) line_number;
-
-	i = 0;
-	while (ptr && ((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122)))
-	{
-		ch = ptr->n;
-		str[i] = ch;
-		ptr = ptr->next;
-		i++;
-	}
-
-	printf("%s\n", str);
-}
-
-/**
  * rotate_to_bottom - rotate the stack to bottom
  *@stack: a double pointer to first node
  *@line_number: the current line number
