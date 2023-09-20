@@ -115,9 +115,12 @@ void _pstr(stack_t **stack, unsigned int line_number)
 void _rotl(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
-	int temp = current->n;
+	int temp;
 	(void)line_number;
 
+	if (current == NULL)
+		return;
+	temp = current->n;
 	while (current != NULL)
 	{
 		if (current->next == NULL)
