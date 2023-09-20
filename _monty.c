@@ -8,7 +8,6 @@
  *
  * Return: Always (0) Success
  */
-char *op_code[2];
 
 int main(int ac, char **argv)
 {
@@ -46,6 +45,7 @@ int main(int ac, char **argv)
 	free_list(stack);
 	return (0);
 }
+char *op_code[2];
 /**
  * read_file - read lines from a file
  * @lines: the content of the file
