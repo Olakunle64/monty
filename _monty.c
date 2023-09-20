@@ -14,7 +14,11 @@ int main(int ac, char **argv)
 {
 	FILE *file_p;
 	stack_t *stack = NULL;
-	char ptr[3000] = {'\0'};
+	size_t n = 0;
+	ssize_t line_read = 0;
+	unsigned int line_count = 0;
+	char lines[1024][100], *buf = NULL;
+
 
 	if (ac != 2)
 	{
@@ -27,38 +31,39 @@ int main(int ac, char **argv)
 		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	fread(ptr, sizeof(char), 3000, file_p);
+	while (1)
+	{
+		line_read = getline(&buf, &n, file_p);
+		if (line_read == -1)
+			break;
+		strcpy(lines[line_count], buf);
+		line_count++;
+	}
+	free(buf);
+	/*fread(ptr, sizeof(char), 3000, file_p);*/
 	fclose(file_p);
-	read_file(ptr, &stack);
+	read_file(lines, &stack, line_count);
 	free_list(stack);
 	return (0);
 }
 /**
  * read_file - read lines from a file
- * @ptr: the content of the file
+ * @lines: the content of the file
  * @stack: a double pointer to the first node in the linked list
+ * @line_count: the number of lines in the file
  *
  * Return: void
  */
-void read_file(char *ptr, stack_t **stack)
+void read_file(char lines[][100], stack_t **stack, unsigned int line_count)
 {
-	char *line_from_file;
-	unsigned int line_number = 1;
-	int i = 0, line_count = 0;
-	char *lines[1024];
+	unsigned int line_number = 1, i = 0;
 
-	line_from_file = strtok(ptr, "\n");
-	while (line_from_file != NULL)
-	{
-		lines[line_count] = line_from_file;
-		line_from_file = strtok(NULL, "\n");
-		line_count++;
-	}
 	for (i = 0; i < line_count; i++)
 	{
 		tokenize_line(lines[i]);
 		if (!op_code[0])
 		{
+			line_number++;
 			continue;
 		}
 		monty_interpreter(line_number, stack);
@@ -74,7 +79,7 @@ void read_file(char *ptr, stack_t **stack)
  */
 void tokenize_line(char *buf)
 {
-	char *delim = " ";
+	char *delim = " \n";
 
 	op_code[0] = strtok(buf, delim);
 	op_code[1] = strtok(NULL, delim);
