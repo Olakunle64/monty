@@ -58,7 +58,9 @@ void read_file(char *ptr, stack_t **stack)
 	{
 		tokenize_line(lines[i]);
 		if (!op_code[0])
+		{
 			continue;
+		}
 		monty_interpreter(line_number, stack);
 		line_number++;
 	}
