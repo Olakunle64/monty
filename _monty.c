@@ -61,7 +61,7 @@ void read_file(char lines[][100], stack_t **stack, unsigned int line_count)
 	for (i = 0; i < line_count; i++)
 	{
 		tokenize_line(lines[i]);
-		if (!op_code[0])
+		if (!op_code[0] || !op_code[0][0] == '#')
 		{
 			line_number++;
 			continue;
