@@ -14,7 +14,6 @@ int main(int ac, char **argv)
 {
 	FILE *file_p;
 	stack_t *stack = NULL;
-	/*size_t read_count;*/
 	char ptr[3000] = {'\0'};
 
 	if (ac != 2)
@@ -45,29 +44,26 @@ void read_file(char *ptr, stack_t **stack)
 {
 	char *line_from_file;
 	unsigned int line_number = 1;
-	char str [1024] = {'\0'};
-	int i = 0;
-	
+	int i = 0, line_count = 0;
+	char *lines[1024];
+
 	line_from_file = strtok(ptr, "\n");
-	while (1)
+	while (line_from_file != NULL)
 	{
-		if (i != 0)
-			line_from_file = strtok(NULL, "\n");
-		if (line_from_file == NULL)
-			break;
-		strcpy(str, line_from_file);
-		tokenize_line(str);
+		lines[line_count] = line_from_file;
+		line_from_file = strtok(NULL, "\n");
+		line_count++;
+	}
+	for (i = 0; i < line_count; i++)
+	{
+		tokenize_line(lines[i]);
 		if (!op_code[0])
 			continue;
 		monty_interpreter(line_number, stack);
 		line_number++;
-		i++;
-
 	}
-	/*free(buf);
-	buf = NULL;
-	*/
 }
+
 /**
  * tokenize_line - split lines in words
  * @buf: the line
