@@ -107,13 +107,13 @@ void monty_interpreter(unsigned int line_number, stack_t **stack)
 	};
 	for (i = 0; arr_instructions[i].opcode != NULL; i++)
 	{
-		if ((_strcmp(op_code[0], arr_instructions[i].opcode) == 0))
+		if ((strcmp(op_code[0], arr_instructions[i].opcode) == 0))
 		{
 			arr_instructions[i].f(stack, line_number);
 			return;
 		}
 	}
-	if ((_strcmp(op_code[0], "nop") != 0))
+	if ((strcmp(op_code[0], "nop") != 0))
 	{
 	dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n",
 			line_number, op_code[0]);
