@@ -27,8 +27,8 @@ int main(int ac, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	read_file(file_p, &stack);
-	fclose(file_p);
 	free_list(stack);
+	fclose(file_p);
 	return (0);
 }
 /**
@@ -44,6 +44,7 @@ void read_file(FILE *file_p, stack_t **stack)
 	size_t n = 0;
 	unsigned int line_number = 1;
 	ssize_t line_count;
+	char str [1024] = {'\0'};
 
 	while (1)
 	{
@@ -52,15 +53,19 @@ void read_file(FILE *file_p, stack_t **stack)
 		{
 			break;
 		}
-		tokenize_line(buf);
+		strcpy(str, buf);
+		free(buf);
+		buf = NULL;
+		tokenize_line(str);
 		if (!op_code[0])
 			continue;
 		monty_interpreter(line_number, stack);
 		line_number++;
 
 	}
-	free(buf);
+	/*free(buf);
 	buf = NULL;
+	*/
 }
 /**
  * tokenize_line - split lines in words
