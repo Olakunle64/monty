@@ -50,5 +50,7 @@ void _add(stack_t **stack, unsigned int line_number);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
 void free_list(stack_t *head);
+void div_top2_by_top1(stack_t **stack, unsigned int line_number);
+void sub_top1_from_top2(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */

@@ -103,6 +103,8 @@ void monty_interpreter(unsigned int line_number, stack_t **stack)
 		{"pint", _pint},
 		{"swap", _swap},
 		{"add", _add},
+		{"sub", sub_top1_from_top2},
+		{"div", div_top2_by_top1},
 		{NULL, NULL}
 	};
 	for (i = 0; arr_instructions[i].opcode != NULL; i++)
