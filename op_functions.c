@@ -20,7 +20,8 @@ void _push(stack_t **stack, unsigned int line_number)
 	}
 	while (op_code[1][i] != '\0')
 	{
-		if (!isdigit(op_code[1][i]))
+		if (!(isdigit(op_code[1][i]) || op_code[1][0] == '-'
+					|| op_code[1][0] == '+'))
 		{
 			dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_number);
 			free_list(*stack);
