@@ -13,6 +13,7 @@ char *op_code[2];
 int main(int ac, char **argv)
 {
 	FILE *file_p;
+	stack_t *stack = NULL;
 
 	if (ac != 2)
 	{
@@ -25,17 +26,19 @@ int main(int ac, char **argv)
 		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	read_file(file_p);
+	read_file(file_p, &stack);
 	fclose(file_p);
+	free_list(stack);
 	return (0);
 }
 /**
  * read_file - read lines from a file
  * @file_p: file pointer
+ * @stack: a double pointer to the first node in the linked list
  *
  * Return: void
  */
-void read_file(FILE *file_p)
+void read_file(FILE *file_p, stack_t **stack)
 {
 	char *buf = NULL;
 	size_t n = 0;
@@ -52,11 +55,12 @@ void read_file(FILE *file_p)
 		tokenize_line(buf);
 		if (!op_code[0])
 			continue;
-		monty_interpreter(line_number);
+		monty_interpreter(line_number, stack);
 		line_number++;
 
 	}
 	free(buf);
+	buf = NULL;
 }
 /**
  * tokenize_line - split lines in words
@@ -75,12 +79,12 @@ void tokenize_line(char *buf)
 /**
  * monty_interpreter - interprete opcodes
  * @line_number: line number of the opcodes
+ * @stack: a double pointer to the first node in the linked list
  *
  * Return: void
  */
-void monty_interpreter(unsigned int line_number)
+void monty_interpreter(unsigned int line_number, stack_t **stack)
 {
-	static stack_t *stack;
 	int i = 0;
 
 	instruction_t arr_instructions[] = {
@@ -96,7 +100,7 @@ void monty_interpreter(unsigned int line_number)
 	{
 		if ((_strcmp(op_code[0], arr_instructions[i].opcode) == 0))
 		{
-			arr_instructions[i].f(&stack, line_number);
+			arr_instructions[i].f(stack, line_number);
 			return;
 		}
 	}
@@ -104,6 +108,7 @@ void monty_interpreter(unsigned int line_number)
 	{
 	dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n",
 			line_number, op_code[0]);
+	free_list(*stack);
 	exit(EXIT_FAILURE);
 	}
 }
