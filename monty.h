@@ -38,7 +38,7 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-void monty_interpreter(unsigned int line_number, stack_t **stack, char *str);
+void monty_interpreter(unsigned int line_number, stack_t **stack);
 void tokenize_line(char *buf);
 void read_file(char lines[][100], stack_t **stack, unsigned int line_count);
 void _pall(stack_t **stack, unsigned int line_number);
