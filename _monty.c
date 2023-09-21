@@ -95,6 +95,7 @@ void tokenize_line(char *buf)
 void monty_interpreter(unsigned int line_number, stack_t **stack)
 {
 	int i = 0;
+	static int flag;
 
 	instruction_t arr_instructions[] = {
 		{"push", _push},
@@ -113,6 +114,18 @@ void monty_interpreter(unsigned int line_number, stack_t **stack)
 		{"rotl", _rotl},
 		{NULL, NULL}
 	};
+	if (strcmp(op_code[0], "queue") == 0)
+	{
+		flag = 1;
+		return;
+	}
+	else if (strcmp(op_code[0], "stack") == 0)
+	{
+		flag = 0;
+		return;
+	}
+	if (flag)
+		arr_instructions[0].f = _enqueue;
 	for (i = 0; arr_instructions[i].opcode != NULL; i++)
 	{
 		if ((strcmp(op_code[0], arr_instructions[i].opcode) == 0))
