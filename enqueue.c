@@ -46,10 +46,7 @@ void _enqueue(stack_t **stack, unsigned int line_number)
 		return;
 	}
 	while (current->next != NULL)
-	{
 		current = current->next;
-	}
 	current->next = newnode;
 	newnode->prev = current;
-
 }
