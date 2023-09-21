@@ -16,18 +16,15 @@ void rotate_to_bottom(stack_t **stack, unsigned int line_number)
 		return;
 
 	(void) line_number;
-	temp1 = (*stack)->next;
-	(*stack)->next = NULL;
-	(*stack)->prev = temp1;
-	temp2 = temp1;
 
-	while (temp2)
-	{
+	temp1 = *stack;
+	while(temp1->next)
 		temp1 = temp1->next;
-		temp2->next = (*stack);
-		temp2->prev = temp1;
-		(*stack) = temp2;
-		temp2 = temp1;
-	}
 
+	temp2 = *stack;
+	*stack = (*stack)->next;
+	(*stack)->prev = NULL;
+	temp2->next = NULL;
+	temp1->next = temp2;
+	temp2->prev = temp1;
 }
