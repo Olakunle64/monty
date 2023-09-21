@@ -57,18 +57,16 @@ char *op_code[2];
 void read_file(char lines[][100], stack_t **stack, unsigned int line_count)
 {
 	unsigned int line_number = 1, i = 0;
-	char str[100] = {'\0'};
 
 	for (i = 0; i < line_count; i++)
 	{
-		strcpy(str, lines[i]);
 		tokenize_line(lines[i]);
 		if (!op_code[0] || op_code[0][0] == '#')
 		{
 			line_number++;
 			continue;
 		}
-		monty_interpreter(line_number, stack, str);
+		monty_interpreter(line_number, stack);
 		line_number++;
 	}
 }
@@ -91,11 +89,10 @@ void tokenize_line(char *buf)
  * monty_interpreter - interprete opcodes
  * @line_number: line number of the opcodes
  * @stack: a double pointer to the first node in the linked list
- * @str: all words on each line
  *
  * Return: void
  */
-void monty_interpreter(unsigned int line_number, stack_t **stack, char *str)
+void monty_interpreter(unsigned int line_number, stack_t **stack)
 {
 	int i = 0;
 	static int flag;
@@ -131,8 +128,8 @@ void monty_interpreter(unsigned int line_number, stack_t **stack, char *str)
 	}
 	if ((strcmp(op_code[0], "nop") != 0))
 	{
-	dprintf(STDERR_FILENO, "L%u: unknown instruction %s",
-			line_number, str);
+	dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n",
+			line_number, op_code[0]);
 	free_list(*stack);
 	exit(EXIT_FAILURE);
 	}
