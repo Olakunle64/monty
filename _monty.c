@@ -114,16 +114,8 @@ void monty_interpreter(unsigned int line_number, stack_t **stack)
 		{"rotl", _rotl},
 		{NULL, NULL}
 	};
-	if (strcmp(op_code[0], "queue") == 0)
-	{
-		flag = 1;
+	if (set_flag(op_code[0], &flag))
 		return;
-	}
-	else if (strcmp(op_code[0], "stack") == 0)
-	{
-		flag = 0;
-		return;
-	}
 	if (flag)
 		arr_instructions[0].f = _enqueue;
 	for (i = 0; arr_instructions[i].opcode != NULL; i++)
@@ -142,4 +134,29 @@ void monty_interpreter(unsigned int line_number, stack_t **stack)
 	exit(EXIT_FAILURE);
 	}
 }
+
+/**
+ * set_flag - check for whether to queue or stack and set flag to
+ * the appropriate value
+ * @str: the opcode(which is either queue or stack)
+ * @flag: the address of the integer variable to set to 1 or 0
+ *
+ * Return: return 1
+ */
+
+int set_flag(char *str, int *flag)
+{
+	if (strcmp(str, "queue") == 0)
+	{
+		*flag = 1;
+		return (1);
+	}
+	else if (strcmp(str, "stack") == 0)
+	{
+		*flag = 0;
+		return (1);
+	}
+	return (0);
+}
+
 
