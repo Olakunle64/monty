@@ -59,5 +59,6 @@ void _pchar(stack_t **stack, unsigned int line_number);
 void _pstr(stack_t **stack, unsigned int line_number);
 void _rotl(stack_t **stack, unsigned int line_number);
 void _enqueue(stack_t **stack, unsigned int line_number);
+int set_flag(char *str, int *flag);
 
 #endif /* MONTY_H */
