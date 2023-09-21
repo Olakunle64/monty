@@ -31,4 +31,3 @@ void rotate_to_bottom(stack_t **stack, unsigned int line_number)
 	}
 
 }
-
