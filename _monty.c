@@ -16,7 +16,7 @@ int main(int ac, char **argv)
 	size_t n = 0;
 	ssize_t line_read = 0;
 	unsigned int line_count = 0;
-	char lines[1024][100], *buf = NULL;
+	char lines[3000][100], *buf = NULL;
 
 
 	if (ac != 2)
